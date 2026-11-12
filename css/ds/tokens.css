@@ -1,0 +1,118 @@
+/* ==========================================================================
+   Design tokens. Layer 1 of the design system.
+   Naming follows shadcn/ui (Nova, neutral base) so the whole system can be
+   mapped 1:1 to shadcn/ui later. Light is :root, dark is [data-theme="dark"].
+   Only tokens live here. No component rules.
+   ========================================================================== */
+@font-face{font-family:"Geist";font-style:normal;font-display:swap;font-weight:100 900;src:url(../../fonts/geist-latin-ext-wght-normal.woff2) format("woff2-variations");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Geist";font-style:normal;font-display:swap;font-weight:100 900;src:url(../../fonts/geist-latin-wght-normal.woff2) format("woff2-variations");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Geist Mono";font-style:normal;font-display:swap;font-weight:100 900;src:url(../../fonts/geist-mono-latin-wght-normal.woff2) format("woff2-variations");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+:root{
+  color-scheme:light;
+
+  /* ---- color roles (semantic) ---- */
+  --background:#ffffff;            --foreground:#0a0a0a;
+  --card:#ffffff;                  --card-foreground:#0a0a0a;
+  --popover:#ffffff;               --popover-foreground:#0a0a0a;
+  --primary:#171717;               --primary-foreground:#fafafa;
+  --secondary:#f5f5f5;             --secondary-foreground:#171717;
+  --muted:#f5f5f5;                 --muted-foreground:#6b6b6b;   /* 5.2:1 on white */
+  --accent:#f0f0f0;                --accent-foreground:#171717;
+  --destructive:#c4161c;           --destructive-foreground:#ffffff;
+  --border:#e5e5e5;                --input:#d4d4d4;              /* field edge a little stronger than a divider: readable in sunlight */
+  --ring:#737373;
+  --page:#fafafa;                  /* app canvas behind the cards */
+
+  /* ---- status (always paired with an icon or label, never color alone) ---- */
+  --success:#15803d;  --success-bg:#f0fdf4;  --success-border:#bbf7d0;
+  --warning:#a16207;  --warning-bg:#fffbeb;  --warning-border:#fde68a;
+  --info:#1d4ed8;     --info-bg:#eff6ff;     --info-border:#bfdbfe;
+  --danger:#b91c1c;   --danger-bg:#fef2f2;   --danger-border:#fecaca;
+  --accent-brand:#2563eb;                    /* links, selected-row marker, chart emphasis */
+
+  /* ---- data-viz categorical order (fixed, never cycled; validated in docs/DESIGN_SYSTEM.md) ---- */
+  --chart-1:#2563eb; --chart-2:#d97706; --chart-3:#0d9488; --chart-4:#9333ea; --chart-5:#db2777; --chart-6:#65a30d;
+  --chart-plan:#a3a3a3;                      /* plan / target series */
+  --chart-grid:#e5e5e5; --chart-text:#525252;
+
+  /* ---- shape ---- */
+  --radius:.625rem;
+  --radius-sm:calc(var(--radius) - 4px);  /* 6  */
+  --radius-md:calc(var(--radius) - 2px);  /* 8  */
+  --radius-lg:var(--radius);              /* 10 */
+  --radius-xl:calc(var(--radius) + 4px);  /* 14 */
+  --radius-full:999px;
+
+  /* ---- elevation ---- */
+  --shadow-xs:0 1px 2px rgba(0,0,0,.05);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.06);
+  --shadow-md:0 4px 12px rgba(0,0,0,.08),0 2px 4px rgba(0,0,0,.05);
+  --shadow-lg:0 16px 40px rgba(0,0,0,.16),0 4px 12px rgba(0,0,0,.08);
+  --overlay:rgba(10,10,10,.5);
+
+  /* ---- type ---- */
+  --font-sans:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --text-xs:.75rem;  --text-sm:.875rem;  --text-base:1rem;  --text-lg:1.125rem;  --text-xl:1.25rem;  --text-2xl:1.5rem;  --text-3xl:1.875rem;
+  --leading-tight:1.25;  --leading-snug:1.4;  --leading-normal:1.55;
+
+  /* ---- space (4px grid) ---- */
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px; --sp-6:24px; --sp-8:32px; --sp-10:40px;
+
+  /* ---- controls: one height for every input/button so rows line up ---- */
+  --control-h:2.5rem;       /* 40px */
+  --control-h-sm:2rem;      /* 32px */
+  --control-h-lg:2.75rem;   /* 44px, the minimum touch target */
+
+  /* ---- layout ---- */
+  --side-w:15.5rem; --topbar-h:3.5rem; --tabbar-h:3.75rem; --content-max:68rem;
+  --safe-t:env(safe-area-inset-top,0px); --safe-b:env(safe-area-inset-bottom,0px);
+
+  /* ---- motion ---- */
+  --ease:cubic-bezier(.2,.7,.2,1); --dur-1:.12s; --dur-2:.2s;
+
+  /* ---- z layers (single scale: never write a raw z-index in a component) ---- */
+  --z-sticky:10; --z-nav:20; --z-popover:40; --z-overlay:60; --z-toast:80;
+
+  /* ---- legacy aliases: older screens (map, dashboard, QC) still read these. Remove when no rule uses them. ---- */
+  --bg:var(--page); --panel:var(--card); --panel2:var(--muted); --line:var(--border); --line2:var(--input);
+  --txt:var(--foreground); --mut:var(--muted-foreground);
+  --blue:var(--primary); --blue-d:var(--primary); --blue-l:var(--accent); --cyan:var(--accent-brand);
+  --good:var(--success); --good-l:var(--success-bg); --warn:var(--warning); --warn-l:var(--warning-bg); --bad:var(--danger); --bad-l:var(--danger-bg);
+  --r:var(--radius-xl); --hdr:var(--topbar-h); --shadow:var(--shadow-sm);
+}
+
+[data-theme="dark"]{
+  color-scheme:dark;
+  --background:#0a0a0a;            --foreground:#fafafa;
+  --card:#141414;                  --card-foreground:#fafafa;
+  --popover:#1a1a1a;               --popover-foreground:#fafafa;
+  --primary:#e8e8e8;               --primary-foreground:#171717;
+  --secondary:#262626;             --secondary-foreground:#fafafa;
+  --muted:#1f1f1f;                 --muted-foreground:#a3a3a3;   /* 7.9:1 on card */
+  --accent:#262626;                --accent-foreground:#fafafa;
+  --destructive:#ef4444;           --destructive-foreground:#0a0a0a;
+  --border:rgba(255,255,255,.1);   --input:rgba(255,255,255,.2);
+  --ring:#8a8a8a;
+  --page:#0a0a0a;
+
+  --success:#4ade80;  --success-bg:rgba(74,222,128,.1);  --success-border:rgba(74,222,128,.28);
+  --warning:#fbbf24;  --warning-bg:rgba(251,191,36,.1);  --warning-border:rgba(251,191,36,.28);
+  --info:#7aa8ff;     --info-bg:rgba(96,140,255,.12);    --info-border:rgba(96,140,255,.3);
+  --danger:#f87171;   --danger-bg:rgba(248,113,113,.1);  --danger-border:rgba(248,113,113,.3);
+  --accent-brand:#6ea0ff;
+
+  --chart-1:#6ea0ff; --chart-2:#f5a524; --chart-3:#2dd4bf; --chart-4:#c084fc; --chart-5:#f472b6; --chart-6:#a3e635;
+  --chart-plan:#737373;
+  --chart-grid:rgba(255,255,255,.1); --chart-text:#a3a3a3;
+
+  --shadow-xs:0 1px 2px rgba(0,0,0,.5);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.03);
+  --shadow-md:0 6px 16px rgba(0,0,0,.5);
+  --shadow-lg:0 20px 48px rgba(0,0,0,.7);
+  --overlay:rgba(0,0,0,.7);
+}
+
+@media (pointer:coarse){:root{--control-h:2.75rem}}
+@media (prefers-reduced-motion:reduce){:root{--dur-1:0s;--dur-2:0s}}

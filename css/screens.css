@@ -1,0 +1,52 @@
+/* ==========================================================================
+   Screens. Layer 5: rules that belong to one screen only (data pages, map, Peta layer panel, PDF dialog).
+   Everything reads tokens. No raw colors.
+   ========================================================================== */
+
+/* every data page uses the same measure */
+#view:is([data-tab=progress],[data-tab=collars],[data-tab=hours],[data-tab=samples],[data-tab=list],[data-tab=import],[data-tab=report])>*{width:100%;max-width:55rem;margin-left:auto;margin-right:auto}
+#view:is([data-tab=progress],[data-tab=collars],[data-tab=hours],[data-tab=samples],[data-tab=list],[data-tab=import],[data-tab=report])>* .card{max-width:none;width:100%}
+#b-genid,#b-gps{margin-bottom:var(--sp-3)}
+
+/* Samples list */
+#slist .item{display:flex;align-items:center;gap:var(--sp-3)}
+#slist .item input[type=checkbox]{margin:0}
+#slist .actions .btn{flex:1 1 100%}
+#slist .row.actions{flex-direction:column;align-items:stretch}
+
+/* ---- map ---- */
+/* base.css sets svg{max-width:100%}; Leaflet panes are 0 wide, so SVG layers in custom panes collapse to nothing. */
+.leaflet-container svg,.leaflet-container img{max-width:none!important;max-height:none!important}
+#map{position:relative;isolation:isolate;width:100%;height:calc(100dvh - var(--topbar-h) - var(--tabbar-h) - 6rem);min-height:24rem;background:var(--muted)}
+@media (min-width:1024px){#map{height:calc(100dvh - var(--topbar-h) - 8rem)}}
+.mp{min-width:13rem;font:.8125rem/1.45 var(--font-sans)}
+.mp table{width:100%;margin:6px 0;border-collapse:collapse}
+.mp td{padding:1px 6px 1px 0;vertical-align:top}.mp td:first-child{color:#6b6b6b;white-space:nowrap}
+.mp-tag{display:inline-block;margin-left:4px;padding:0 .5rem;font-size:.6875rem;font-weight:600;border:2px solid;border-radius:var(--radius-full)}
+.mp-h{margin-top:6px;font-weight:600}.mp-r{font-size:.75rem}
+.mlp-toggle{position:absolute;z-index:1000;top:.65rem;right:.65rem;min-height:var(--control-h-sm);padding:.25rem .85rem;font:inherit;font-size:.8125rem;font-weight:500;color:var(--foreground);background:var(--background);border:1px solid var(--input);border-radius:var(--radius-md);box-shadow:var(--shadow-md);cursor:pointer}
+.mlp{position:absolute;z-index:999;top:3.4rem;right:.65rem;width:19rem;max-height:calc(100% - 4rem);display:flex;flex-direction:column;font-size:.8125rem;color:var(--popover-foreground);background:var(--popover);border:1px solid var(--border);border-radius:var(--radius-xl);box-shadow:var(--shadow-lg)}
+.mlp[hidden]{display:none}
+.mlp-h{display:flex;gap:var(--sp-2);align-items:center;justify-content:space-between;padding:.65rem .8rem;border-bottom:1px solid var(--border)}
+.mlp-h select{max-width:11rem;min-height:var(--control-h-sm);margin:0;padding:.2rem 1.8rem .2rem .5rem;font-size:.8125rem}
+.mlp-list{overflow:auto;padding:var(--sp-1) 0}
+.mlp-row{padding:.4rem .8rem;border-bottom:1px solid var(--border)}
+.mlp-top{display:flex;align-items:center;gap:var(--sp-2)}
+.mlp-top input[type=checkbox]{margin:0}
+.mlp-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500;cursor:pointer}
+.mlp-top button{width:1.8rem;height:1.8rem;font:inherit;color:var(--foreground);background:var(--background);border:1px solid var(--input);border-radius:var(--radius-sm);cursor:pointer}
+.mlp-top button:hover{background:var(--accent)}
+.mlp-top button:disabled{opacity:.35;cursor:default}
+.mlp-ed{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;padding:.5rem 0 .25rem}
+.mlp-ed label{margin:0;font-size:.75rem;font-weight:400;color:var(--muted-foreground)}
+.mlp-ed input[type=color]{width:100%;height:1.9rem;margin-top:2px;padding:2px;min-height:0}
+.mlp-ed input[type=range]{width:100%;margin-top:2px}
+.mlp-ed select{min-height:1.9rem;margin-top:2px;padding:.2rem 1.6rem .2rem .45rem;font-size:.75rem}
+.mlp-btns{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap}
+.mlp-f{display:flex;padding:.65rem .8rem;border-top:1px solid var(--border)}
+.mlp-f .btn{flex:1}
+.maplabel,.leaflet-tooltip.maplabel{padding:0;font-size:.6875rem;font-weight:600;color:#0a0a0a;background:transparent;border:0;box-shadow:none;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff}
+.maplabel::before,.leaflet-tooltip.maplabel::before{display:none}
+.mpdf{position:fixed;inset:0;z-index:var(--z-overlay);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:var(--sp-6) var(--sp-3);background:var(--overlay)}
+.mpdf .card{width:100%;max-width:32rem;margin:0}
+@media (max-width:560px){.mlp{left:.65rem;right:.65rem;top:auto;bottom:.65rem;width:auto;max-height:55%}#map{min-height:26rem}}

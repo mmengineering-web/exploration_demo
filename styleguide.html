@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff"><meta name="robots" content="noindex">
+<title>Design system · Exploration PWA</title>
+<script>try{var t=localStorage.getItem('exp_theme')||'system';var d=t==='dark'||(t==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light'}catch(e){}</script>
+<link rel="stylesheet" href="css/ds/tokens.css"><link rel="stylesheet" href="css/ds/base.css"><link rel="stylesheet" href="css/ds/components.css"><link rel="stylesheet" href="css/ds/shell.css"><link rel="stylesheet" href="css/dash.css">
+<style>
+/* style guide chrome only. The system itself lives in css/ds/ */
+body{padding-bottom:var(--sp-10)}
+.sg{max-width:64rem;margin:0 auto;padding:var(--sp-6) var(--sp-4)}
+.sg-top{position:sticky;top:0;z-index:var(--z-nav);display:flex;gap:var(--sp-3);align-items:center;padding:var(--sp-3) var(--sp-4);background:color-mix(in srgb,var(--background) 90%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.sg-top nav{display:flex;gap:2px;overflow-x:auto;flex:1}
+.sg-top nav a{padding:.35rem .7rem;font-size:.8125rem;font-weight:500;color:var(--muted-foreground);text-decoration:none;border-radius:var(--radius-md);white-space:nowrap}
+.sg-top nav a:hover{color:var(--foreground);background:var(--accent)}
+.sg section{padding:var(--sp-8) 0 0}
+.sg h1{font-size:2rem}.sg h2.sec{font-size:1.25rem;margin:0 0 var(--sp-1)}
+.sg .lead{color:var(--muted-foreground);margin:0 0 var(--sp-5)}
+.sw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(13rem,1fr));gap:var(--sp-3)}
+.swatch{border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;background:var(--card)}
+.swatch .chipbox{height:3.2rem;display:flex;align-items:flex-end;justify-content:flex-end;padding:.3rem .5rem;font-size:.75rem;font-weight:600}
+.swatch .meta{padding:.5rem .7rem;font-size:.75rem;line-height:1.4}
+.swatch .meta b{display:block;font-size:.8125rem;font-family:var(--font-mono)}
+.ratio{display:inline-block;padding:0 .4rem;border-radius:var(--radius-sm);font-weight:700;font-size:.6875rem}
+.ratio.ok{background:var(--success-bg);color:var(--success)} .ratio.bad{background:var(--danger-bg);color:var(--danger)}
+.demo{display:flex;flex-wrap:wrap;gap:var(--sp-3);align-items:center}
+.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:var(--sp-4)}
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-4)}
+.dd>div{padding:var(--sp-3);border-radius:var(--radius-lg);font-size:.8125rem}
+.dd .do{border:1px solid var(--success-border);background:var(--success-bg)} .dd .dont{border:1px solid var(--danger-border);background:var(--danger-bg)}
+@media(max-width:640px){.dd{grid-template-columns:1fr}}
+.tok{width:100%;border-collapse:collapse;font-size:.8125rem} .tok td,.tok th{padding:.4rem .6rem;border-bottom:1px solid var(--border);text-align:left} .tok td:first-child{font-family:var(--font-mono)}
+.sample-bar{height:2.5rem;background:var(--foreground);border-radius:var(--radius-md);display:inline-block}
+</style>
+</head>
+<body>
+<div class="sg-top"><span class="brand-mark" id="mk"></span><strong>Design system</strong>
+ <nav><a href="#colors">Color</a><a href="#type">Type</a><a href="#shape">Shape &amp; space</a><a href="#atoms">Atoms</a><a href="#molecules">Molecules</a><a href="#organisms">Organisms</a><a href="#data">Data viz</a><a href="#rules">Rules</a></nav>
+ <span id="themebox"></span></div>
+<div class="sg">
+<h1>Exploration PWA design system</h1>
+<p class="lead">shadcn/ui Nova tokens (neutral base) rebuilt as plain CSS, so the app keeps running offline with no build step. Token names match shadcn, so a React port is a copy, not a redesign. Atomic Design: tokens → atoms → molecules → organisms → templates → screens.</p>
+
+<section id="colors"><h2 class="sec">Color roles</h2><p class="lead">Every pair below is measured live against WCAG. Toggle the theme: the numbers update.</p><div class="sw-grid" id="roles"></div>
+<h3 style="margin-top:var(--sp-5)">Status (always icon + label, never color alone)</h3><div class="sw-grid" id="status"></div></section>
+
+<section id="type"><h2 class="sec">Typography</h2><p class="lead">Geist (variable, self-hosted) for UI, Geist Mono for IDs and codes. Inputs are 16px on phones so iOS does not zoom.</p>
+<div class="card"><h1>Heading 1 · 24 / 650</h1><h2>Heading 2 · 17 / 600</h2><h3>Heading 3 · 15 / 600</h3><p>Body 15 / 400. Drilling progress for WKM-AG-0100, 12.50 – 15.00 m, core recovery 96.4 %.</p><p class="muted small">Muted small 13 / 400, helper and meta text.</p><p class="mono">WKM-AG-0100 · TPB-A007-48-PD · 0.757 ± 0.018</p><p class="tnum" style="font-size:1.625rem;font-weight:650;letter-spacing:-.03em">1,284.50 m <span class="muted small" style="font-weight:400">tabular figures</span></p></div></section>
+
+<section id="shape"><h2 class="sec">Shape, space, elevation</h2>
+<div class="spec"><div class="card"><h3>Radius</h3><div class="demo" id="radii"></div></div><div class="card"><h3>Space (4px grid)</h3><div id="spaces"></div></div><div class="card"><h3>Elevation</h3><div class="demo"><div class="card" style="box-shadow:var(--shadow-xs);margin:0">xs</div><div class="card" style="box-shadow:var(--shadow-sm);margin:0">sm</div><div class="card" style="box-shadow:var(--shadow-md);margin:0">md</div><div class="card" style="box-shadow:var(--shadow-lg);margin:0">lg</div></div></div></div></section>
+
+<section id="atoms"><h2 class="sec">Atoms</h2><p class="lead">Buttons share one height scale with inputs: 32 / 40 / 44 px (44 on touch screens).</p>
+<div class="card"><h3>Button</h3><div class="demo"><button class="btn primary" style="flex:none">Primary</button><button class="btn">Outline</button><button class="btn secondary">Secondary</button><button class="btn ghost">Ghost</button><button class="btn danger">Destructive</button><button class="btn danger solid">Delete</button><button class="btn small">Small</button><button class="btn lg">Large</button><button class="btn icon" aria-label="Refresh" id="i-ref"></button><button class="btn" disabled>Disabled</button><button class="btn loading" id="b-load"></button></div></div>
+<div class="card"><h3>Badge</h3><div class="demo"><span class="chip">Default</span><span class="chip good"><i class="dot"></i>Pass</span><span class="chip warn"><i class="dot"></i>3 pending</span><span class="chip bad"><i class="dot"></i>Fail</span><span class="chip info">Info</span><span class="chip super">Super admin</span></div></div>
+<div class="card"><h3>Field</h3><div class="spec"><label>Hole ID<input value="WKM-AG-0100" autocapitalize="characters"></label><label>Tanggal<span class="datewrap"><input type="date" value="2026-11-12"><span id="i-cal"></span></span></label><label>Rig<select><option>RIG-01</option><option>RIG-02</option></select></label><label>Meter<input readonly value="2.50"></label><label>Invalid<input aria-invalid="true" value="abc"></label><label>Disabled<input disabled value="Locked"></label></div><label class="chk"><input type="checkbox" checked> End of hole</label><label class="chk"><input type="checkbox"> Sertakan baris berperingatan</label></div></section>
+
+<section id="molecules"><h2 class="sec">Molecules</h2>
+<div class="card"><h3>Alert</h3><div class="msg ok">Selesai: 132 baris disimpan di HP dan dikirim saat online.</div><div class="msg warn">Interval berakhir di luar total depth collar.</div><div class="msg err">Rig "RIG-09" tidak terdaftar.</div><div class="msg info">Pemeriksaan diulang otomatis setelah rig didaftarkan.</div><div class="helpbox">Helper: <b>Hole ID</b> mengikuti pola site.</div></div>
+<div class="card"><h3>Segmented control</h3><div class="subnav"><button class="on">Rig</button><button>Prospect</button><button>Kode</button></div></div>
+<div class="card"><h3>KPI tile</h3><div class="dash"><div class="kpis"><div class="kpi"><div class="l">Meter bulan ini</div><div class="v">1,284.5</div><div class="s">94.2 % dari rencana</div></div><div class="kpi"><div class="l">Core recovery</div><div class="v ex-good">96.4%</div><div class="s">target ≥ 95 %</div></div><div class="kpi"><div class="l">QC gagal</div><div class="v ex-bad">7</div><div class="s">2 batch</div></div></div></div></div>
+<div class="card"><h3>Empty state + Skeleton</h3><div class="spec"><div id="emp"></div><div id="skel"></div></div></div></section>
+
+<section id="organisms"><h2 class="sec">Organisms</h2>
+<div class="card"><h3>Table (editable grid)</h3><div class="gridwrap"><table class="grid"><thead><tr><th class="c-n">#</th><th>Hole ID</th><th class="c-num">From</th><th class="c-num">To</th><th>Status</th></tr></thead><tbody>
+<tr><td class="c-n">1</td><td class="c-pk">WKM-AG-0100</td><td class="c-num">0.00</td><td class="c-num">2.50</td><td><span class="chip good">Pass</span></td></tr>
+<tr class="dirty"><td class="c-n">2</td><td class="c-pk">WKM-AG-0100</td><td class="c-num">2.50</td><td class="c-num">5.00</td><td><span class="chip warn">Edited</span></td></tr>
+<tr class="err"><td class="c-n">3</td><td class="c-pk">WKM-AG-0101</td><td class="c-num">4.00</td><td class="c-num">3.00</td><td><span class="chip bad">Invalid</span></td></tr></tbody></table></div></div>
+<div class="card"><h3>Dialog, bottom sheet, toast</h3><div class="demo"><button class="btn" id="d-conf">Confirm dialog</button><button class="btn danger" id="d-del">Destructive confirm</button><button class="btn" id="d-sheet">Bottom sheet</button><button class="btn" id="d-toast">Toast</button><button class="btn" id="d-toast2">Error toast</button></div></div>
+<div class="card"><h3>Navigation</h3><p class="muted small">Desktop (≥ 1024 px): sidebar grouped Input / Analisis / Data / Sistem. Phone: bottom bar with the first four tabs and a "Lainnya" sheet. Same tab list, one source of truth (<code>tabsFor()</code>).</p></div></section>
+
+<section id="data"><h2 class="sec">Data viz</h2><p class="lead">Fixed categorical order, never cycled. Charts read <code>--chart-N</code>, so they re-color in dark mode.</p><div class="sw-grid" id="charts"></div></section>
+
+<section id="rules"><h2 class="sec">Do and don't</h2><div class="dd"><div class="do"><b>Do</b><br>Use <code>var(--muted-foreground)</code> for secondary text. Pair status color with an icon and a label. Use <code>.btn.primary</code> once per card.</div><div class="dont"><b>Don't</b><br>Write raw hex in a component. Use red/green alone to signal pass/fail. Add a z-index outside the <code>--z-*</code> scale.</div></div>
+<table class="tok" style="margin-top:var(--sp-5)"><thead><tr><th>Token group</th><th>Where</th></tr></thead><tbody><tr><td>--background … --ring</td><td>css/ds/tokens.css (shadcn names)</td></tr><tr><td>--success/warning/info/danger (+ -bg, -border)</td><td>status roles</td></tr><tr><td>--chart-1…6</td><td>data viz order</td></tr><tr><td>--control-h*, --radius-*, --sp-*, --z-*</td><td>shape, size, layering</td></tr><tr><td>--bg --panel --txt --mut --blue …</td><td>legacy aliases, remove when unused</td></tr></tbody></table></section>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script type="module">
+import { icon } from './js/icons.js';
+import * as ui from './js/ui.js';
+const $ = s => document.querySelector(s);
+$('#mk').innerHTML = icon('mountain-snow'); $('#mk').className = 'brand-mark';
+$('#themebox').innerHTML = ui.themeButtonHtml(); ui.bindThemeButton(document);
+$('#i-ref').innerHTML = icon('refresh-cw'); $('#i-cal').innerHTML = icon('calendar');
+$('#b-load').innerHTML = icon('loader-circle', 'spin') + ' Saving';
+$('#emp').innerHTML = ui.empty('inbox', 'Belum ada data', 'Input pertama muncul di sini.'); $('#skel').innerHTML = ui.skeleton(4);
+const cv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+// WCAG contrast
+const rgb = c => { const m = c.match(/#([0-9a-f]{6})/i); if (m) return [0, 2, 4].map(i => parseInt(m[1].slice(i, i + 2), 16)); const r = c.match(/rgba?\(([^)]+)\)/); return r ? r[1].split(',').slice(0, 3).map(Number) : [0, 0, 0]; };
+const blend = (fg, bg) => { const m = fg.match(/rgba\(([^)]+)\)/); if (!m) return rgb(fg); const [r, g, b, a] = m[1].split(',').map(Number); const B = rgb(bg); return [r, g, b].map((v, i) => v * a + B[i] * (1 - a)); };
+const lum = ([r, g, b]) => { const f = v => { v /= 255; return v <= .03928 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4; }; return .2126 * f(r) + .7152 * f(g) + .0722 * f(b); };
+const ratio = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); };
+function paint() {
+  const bg = cv('--background'), card = cv('--card');
+  const roles = [['--foreground', '--background'], ['--muted-foreground', '--background'], ['--muted-foreground', '--card'], ['--primary-foreground', '--primary'], ['--secondary-foreground', '--secondary'], ['--accent-foreground', '--accent'], ['--destructive-foreground', '--destructive'], ['--accent-brand', '--background']];
+  $('#roles').innerHTML = roles.map(([fg, bgn]) => { const r = ratio(rgb(cv(fg)), rgb(cv(bgn))); return `<div class="swatch"><div class="chipbox" style="background:${cv(bgn)};color:${cv(fg)}">Aa ${r.toFixed(1)}:1</div><div class="meta"><b>${fg}</b>on ${bgn}<br><span class="ratio ${r >= 4.5 ? 'ok' : 'bad'}">${r >= 7 ? 'AAA' : r >= 4.5 ? 'AA' : 'FAIL'}</span></div></div>`; }).join('');
+  $('#status').innerHTML = ['success', 'warning', 'info', 'danger'].map(n => { const bgc = blend(cv(`--${n}-bg`), card), r = ratio(rgb(cv(`--${n}`)), bgc); return `<div class="swatch"><div class="chipbox" style="background:${cv(`--${n}-bg`)};color:${cv(`--${n}`)};border-bottom:1px solid ${cv(`--${n}-border`)}">${n} ${r.toFixed(1)}:1</div><div class="meta"><b>--${n}</b><span class="ratio ${r >= 4.5 ? 'ok' : 'bad'}">${r >= 4.5 ? 'AA' : 'FAIL'}</span></div></div>`; }).join('');
+  $('#charts').innerHTML = [1, 2, 3, 4, 5, 6].map(i => `<div class="swatch"><div class="chipbox" style="background:${cv('--chart-' + i)};color:#fff">${i}</div><div class="meta"><b>--chart-${i}</b>${cv('--chart-' + i)}</div></div>`).join('');
+}
+paint(); ui.theme.onChange(paint);
+$('#radii').innerHTML = ['sm', 'md', 'lg', 'xl'].map(n => `<div style="width:4rem;height:4rem;display:grid;place-items:center;font-size:.75rem;background:var(--muted);border:1px solid var(--border);border-radius:var(--radius-${n})">${n}</div>`).join('');
+$('#spaces').innerHTML = [1, 2, 3, 4, 6, 8, 10].map(n => `<div style="display:flex;align-items:center;gap:.6rem;margin:.2rem 0;font-size:.75rem"><span class="mono" style="width:4rem">--sp-${n}</span><i class="sample-bar" style="width:var(--sp-${n});height:.7rem"></i></div>`).join('');
+$('#d-conf').onclick = async () => { const ok = await ui.confirm('Data tersimpan di HP dan dikirim saat online.', { title: 'Simpan data?', ok: 'Simpan' }); ui.toast(ok ? 'Dikonfirmasi' : 'Dibatalkan'); };
+$('#d-del').onclick = () => ui.confirm('Record ini akan dihapus (soft delete).', { title: 'Hapus data?', ok: 'Hapus', danger: true });
+$('#d-sheet').onclick = () => ui.sheet('<p class="ui-body" style="margin:0 0 1rem">Isi sheet: daftar menu, filter, atau detail record.</p><div class="ui-foot"><button class="btn primary" onclick="this.closest(\'.ui-overlay\').remove()">Tutup</button></div>', { title: 'Menu' });
+$('#d-toast').onclick = () => ui.toast('Tersimpan di perangkat'); $('#d-toast2').onclick = () => ui.toast('Gagal menyimpan', 'err');
+</script>
+</body></html>

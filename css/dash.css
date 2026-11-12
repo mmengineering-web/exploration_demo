@@ -1,0 +1,98 @@
+/* ==========================================================================
+   Dashboard, Data QC, RoA Lab. Scoped under .dash so the entry screens are untouched.
+   KPI tile + chart card + status pill. All colors come from tokens, so dark mode is free.
+   ========================================================================== */
+.dash{--plan:var(--chart-plan)}
+.dash-bar{display:flex;justify-content:space-between;align-items:center;gap:var(--sp-2);margin-bottom:var(--sp-3)}
+.dash .hidden{display:none!important}
+
+/* header block */
+.dash .ex-wrap{display:flex;flex-direction:column;gap:var(--sp-5)}
+.dash .ex-head{display:block;padding:0;background:none;border:0;position:static}
+.dash .ex-head h1{margin:0 0 var(--sp-1);font-size:var(--text-2xl);font-weight:650;letter-spacing:-.025em}
+.dash .ex-sub{margin:0;color:var(--muted-foreground)}
+.dash .ex-take{margin:var(--sp-3) 0 0;padding-left:var(--sp-3);border-left:3px solid var(--accent-brand)}
+
+/* controls: one row of filters above the charts */
+.dash .filters{display:flex;gap:var(--sp-3);flex-wrap:wrap;align-items:flex-end;margin-bottom:var(--sp-4)}
+.dash .filters label{flex:0 1 12rem;min-width:9rem;margin:0}
+.dash .ex-controls{margin-top:var(--sp-3);display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
+.dash .ex-controls label{display:inline-flex;align-items:center;gap:.5rem;flex:0 0 auto;min-width:0;margin:0;font-weight:400;color:var(--muted-foreground)}
+.dash .ex-controls select{width:auto;min-width:9.5rem;max-width:14rem;margin-top:0}
+.dash .seg,.dash .ex-seg{display:inline-flex;padding:3px;gap:2px;background:var(--muted);border-radius:var(--radius-lg)}
+.dash .seg button,.dash .ex-seg button{min-height:var(--control-h-sm);padding:.25rem .8rem;font:inherit;font-size:.8125rem;font-weight:500;color:var(--muted-foreground);background:transparent;border:0;border-radius:var(--radius-md);cursor:pointer}
+.dash .seg button.on,.dash .ex-seg button[aria-pressed="true"]{color:var(--foreground);background:var(--background);box-shadow:var(--shadow-sm)}
+.dash .ex-seg button+button{border-left:0}
+.dash .ex-reset{min-height:var(--control-h-sm);padding:.25rem .8rem;font:inherit;font-size:.8125rem;font-weight:500;color:var(--muted-foreground);background:transparent;border:1px solid var(--input);border-radius:var(--radius-full);cursor:pointer}
+.dash .ex-reset:hover{color:var(--foreground);background:var(--accent)}
+
+/* section */
+.dash .ex-sec{padding-top:var(--sp-5);border-top:1px solid var(--border)}
+.dash .ex-sec>h2{display:flex;align-items:center;gap:.5rem;margin:0 0 2px;font-size:var(--text-lg);font-weight:600}
+.dash .ex-sec>h2::before{content:"";width:.5rem;height:.5rem;border-radius:2px;background:var(--accent-brand)}
+.dash .ex-note{margin:0 0 var(--sp-3);font-size:.8125rem;color:var(--muted-foreground)}
+
+/* collar map */
+.dash .dmap{isolation:isolate;height:26rem;overflow:hidden;background:var(--muted);border:1px solid var(--border);border-radius:var(--radius-xl)}
+.dash .ex-legend{display:flex;flex-wrap:wrap;gap:var(--sp-4);margin-bottom:var(--sp-2);font-size:.8125rem}
+.dash .ex-lg{display:inline-flex;align-items:center;gap:.4rem}
+.dash .ex-lg i{width:.75rem;height:.75rem;border:2px solid;border-radius:50%}
+.dash .ex-lg.muted{color:var(--muted-foreground)}
+
+/* KPI tile */
+.dash .kpis,.dash .ex-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));gap:var(--sp-3);margin-bottom:var(--sp-4)}
+.dash .kpi,.dash .ex-card{padding:var(--sp-4);background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);box-shadow:var(--shadow-sm)}
+.dash .kpi .l,.dash .ex-card .k{font-size:.8125rem;font-weight:500;color:var(--muted-foreground)}
+.dash .kpi .v,.dash .ex-card .v{margin-top:var(--sp-1);font-size:1.625rem;font-weight:650;letter-spacing:-.03em;line-height:1.15;font-variant-numeric:tabular-nums}
+.dash .kpi .s,.dash .ex-card .s{margin-top:2px;font-size:.75rem;color:var(--muted-foreground)}
+.dash .ex-card .v .of{font-weight:400;color:var(--muted-foreground)}
+.dash .ex-good{color:var(--success)}.dash .ex-bad{color:var(--danger)}
+
+/* chart card grid */
+.dash .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--sp-4)}
+.dash .card{grid-column:span 6;min-width:0;margin:0;padding:var(--sp-4) var(--sp-5)}
+.dash .card.w4{grid-column:span 4}.dash .card.w8{grid-column:span 8}.dash .card.w12{grid-column:span 12}
+.dash .card h3{margin:0;font-size:.9375rem;font-weight:600}
+.dash .card .sub{margin:2px 0 var(--sp-2);font-size:.8125rem;color:var(--muted-foreground)}
+.dash .card-head{display:flex;justify-content:space-between;gap:var(--sp-2);align-items:flex-start}
+.dash .ex-wrap .card,.dash .ex-chartcard{grid-column:auto;margin-top:var(--sp-3)}
+.dash .ex-chartcard{padding:var(--sp-4) var(--sp-5);background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl)}
+.dash .ex-chartcard h3{margin:0 0 2px}
+.dash .chart-box{position:relative;height:15.5rem}
+.dash .chart-box.sm{height:12.5rem}
+.dash .chart-box.tall{height:20rem}
+.dash .empty{padding:var(--sp-8) var(--sp-2);text-align:center;color:var(--muted-foreground)}
+@media (max-width:1000px){.dash .card,.dash .card.w4,.dash .card.w8{grid-column:span 12}}
+
+/* data tables inside the dashboard */
+.dash .tw,.dash .ex-tablewrap{overflow-x:auto}
+.dash table{width:100%;border-collapse:collapse;font-size:.8125rem}
+.dash th{padding:.45rem .6rem;text-align:right;font-size:.75rem;font-weight:600;color:var(--muted-foreground);border-bottom:1px solid var(--border)}
+.dash td{padding:.5rem .6rem;text-align:right;border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums}
+.dash tbody tr:last-child td{border-bottom:0}
+.dash th:first-child,.dash td:first-child,.dash .ex-table th:first-child,.dash .ex-table td:first-child{text-align:left}
+
+/* progress bars + funnel */
+.dash .bar{height:.5rem;overflow:hidden;background:var(--muted);border-radius:var(--radius-full)}
+.dash .bar>i{display:block;height:100%;background:var(--chart-1);border-radius:var(--radius-full)}
+.dash .bar.plan>i{background:var(--plan)}
+.dash .stat-row{margin:var(--sp-3) 0}
+.dash .stat-row .t{display:flex;justify-content:space-between;margin-bottom:var(--sp-1);font-size:.8125rem}
+.dash .funnel{display:flex;gap:var(--sp-3)}
+.dash .funnel>div{flex:1;padding:var(--sp-3);text-align:center;background:var(--muted);border-radius:var(--radius-lg)}
+.dash .funnel b{display:block;font-size:1.375rem;letter-spacing:-.03em}
+.dash .funnel span{font-size:.75rem;color:var(--muted-foreground)}
+.dash .notes{margin:0;padding-left:1.1rem}
+.dash .notes li{margin:var(--sp-1) 0}
+.dash .fine{margin-top:var(--sp-5);font-size:.75rem;color:var(--muted-foreground)}
+
+/* Data QC + RoA: status pill = icon-free text label + tinted surface (never color alone) */
+.dash .qc-tbl td,.dash .qc-tbl th{text-align:left;vertical-align:top}
+.dash .pill{display:inline-flex;align-items:center;white-space:nowrap;padding:.1rem .55rem;font-size:.75rem;font-weight:600;color:var(--muted-foreground);background:var(--muted);border:1px solid var(--border);border-radius:var(--radius-full)}
+.dash .pill.critical,.dash .pill.fail{color:var(--danger);background:var(--danger-bg);border-color:var(--danger-border)}
+.dash .pill.warning,.dash .pill.warn{color:var(--warning);background:var(--warning-bg);border-color:var(--warning-border)}
+.dash .pill.pass{color:var(--success);background:var(--success-bg);border-color:var(--success-border)}
+.dash .pill.info,.dash .pill.na{color:var(--muted-foreground)}
+#view .tbl tr.roa-warn td{background:var(--warning-bg)}
+#view .tbl tr.roa-skip td{color:var(--muted-foreground);text-decoration:line-through}
+#view table.tbl{width:100%;border-collapse:collapse}
