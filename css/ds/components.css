@@ -29,8 +29,9 @@ a.btn{flex:1}
 label.btn{margin:0;flex:none;cursor:pointer}
 .btn.block,.login .btn.block{display:flex;width:100%}
 .gridbar .btn.primary{flex:none}
-.row.actions{margin-top:var(--sp-2)}
-.row.actions .btn.primary{flex:1}
+.row.actions{margin-top:var(--sp-2);flex-wrap:wrap}
+.row.actions .btn{max-width:100%}
+.row.actions .btn.primary{flex:1 1 auto}
 
 /* ---------- Badge / chip (atom): status always carries a label, never color only ---------- */
 .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.15rem .6rem;font-size:.75rem;font-weight:500;line-height:1.4;white-space:nowrap;color:var(--muted-foreground);background:var(--muted);border:1px solid var(--border);border-radius:var(--radius-full)}
