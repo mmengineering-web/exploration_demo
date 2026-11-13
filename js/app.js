@@ -1076,7 +1076,7 @@ async function viewList() {
   ${['progress', 'collars', 'disthours', 'surveys', 'samples', 'assays'].map(k => `<div id="r-${k}"></div>`).join('')}
   <div class="card"><h2>Backup ke Excel</h2>
     <p class="muted small">Salinan data di HP sebagai file .xlsx. Simpan atau kirim ke site admin bila lama tidak ada internet. Foto tidak ikut; foto tetap di HP sampai terkirim.</p>
-    <div class="row actions"><button class="btn primary" id="x-pend" ${ob.length ? '' : 'disabled'}>Unduh yang belum terkirim (${ob.length})</button><button class="btn" id="x-all">Unduh semua</button></div>
+    <div class="row actions one-line"><button class="btn primary" id="x-pend" ${ob.length ? '' : 'disabled'}>Unduh yang belum terkirim (${ob.length})</button><button class="btn" id="x-all">Unduh semua</button></div>
   </div>
   <div class="card"><h2>Backup foto (zip)</h2>
     <p class="muted small">Semua foto collar dan core dalam satu file .zip (folder collar/ dan core/). Ikut filter di daftar Drilling Progress dan Collar di atas. Foto yang hanya ada di server diunduh dulu, jadi perlu internet.</p>
