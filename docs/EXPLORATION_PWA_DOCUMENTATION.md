@@ -1,6 +1,6 @@
 # Exploration Offline Data Entry PWA: Documentation
 
-**Version:** v1.2.2 (cache `exp-pwa-v36`)
+**Version:** v1.2.3 (cache `exp-pwa-v39`)
 **Owner:** Database Engineering, PT Central Abadi Nusantara
 **Pilot site:** WKM. **Sites planned:** WKM, BM, TMS, CDSM, IBN, TPB, AJB, CDS (one Supabase project per site, combined in **explohub**)
 **Status:** Phase 1 (data input) is feature complete. Phase 2 is feature complete: the one-page **Dashboard** (with QAQC Geokimia, a collar map by class, Excel and PDF export), the **All sites** view on explohub, the **Data QC** tab and the lab RoA PDF import are built. All were tested in a headless browser with a fake Supabase (and the map with a local Leaflet copy) and on a local Postgres 16. **Not yet tested on real phones, real Supabase storage, the dashboard on a live site, a real explohub login, real map tiles, real Excel or the Edge Function.**
@@ -60,10 +60,10 @@ Tabs shown depend on the user's role and per-form permission (section 4). On a d
 - While unsent data exists, the site selector is locked so data cannot go to the wrong site.
 
 ### 3.2 Drilling Progress
-Date, shift, rig, hole, From / To, layer, core length (recovery % calculated), downtime hours and reason, core photo (`core/HOLEID_from_to.jpg`), EOH checkbox, remarks. Planned depth ("Rencana") and achieved depth ("Capaian") are calculated per hole. Consumables are **not** on this form (they are on Distribution Hour). Below the form: the collapsible, searchable **record list** of all progress rows (tap a row to edit).
+Date, shift, rig, hole, From / To, layer, core length (recovery % calculated), downtime hours and reason, core photo (`core/HOLEID_from_to.jpg`; two buttons: take a photo with the camera, or pick one from the gallery or files), EOH checkbox, remarks. Planned depth ("Rencana") and achieved depth ("Capaian") are calculated per hole. Consumables are **not** on this form (they are on Distribution Hour). Below the form: the collapsible, searchable **record list** of all progress rows (tap a row to edit).
 
 ### 3.3 Collar
-Hole ID, type, prospect, status, planned and as-built position (**Ambil GPS** with accuracy), elevation, depths, dip and azimuth, collar photo (`collar/HOLEID.jpg`), remarks.
+Hole ID, type, prospect, status, planned and as-built position (**Ambil GPS** with accuracy), elevation, depths, dip and azimuth, collar photo (`collar/HOLEID.jpg`; camera or gallery or files), remarks.
 - **Register missing holes:** holes found in Progress, Sample or Import but absent from Collar can be registered.
 - **Duplicate guard:** planned and as-built coordinates are compared with every other live hole; closer than the limit (default 2 m) blocks saving. The server repeats the check.
 - **Pilih dari rencana** completes a planned hole instead of creating a duplicate; **Buat Hole ID baru** generates `SITE-TYPE-<device><nnn>` for unplanned holes so two offline phones never collide.
@@ -238,7 +238,7 @@ Storage: private bucket `exp-photos` (`collar/`, `core/`).
 ---
 
 ## 8. Photos
-Compressed on the phone (default longest side 1280 px, JPEG), stored locally until uploaded with their record. Collar photo `collar/HOLEID.jpg`, core photo `core/HOLEID_from_to.jpg`. **Backup foto** exports them. OneDrive copy is designed but not built (needs an Azure app from IT).
+Compressed on the phone (default longest side 1280 px, JPEG), stored locally until uploaded with their record. Both photo fields have **Ambil foto (kamera)** and **Pilih dari galeri / file** buttons (the camera button opens the camera directly; the other opens the phone's gallery or file picker). Collar photo `collar/HOLEID.jpg`, core photo `core/HOLEID_from_to.jpg`. **Backup foto** exports them. OneDrive copy is designed but not built (needs an Azure app from IT).
 
 ---
 
@@ -407,3 +407,4 @@ Icons by Lucide (ISC) and fonts Geist and Geist Mono (SIL OFL), licenses in `lic
 | 1.1 | UI rebuilt on a design system (shadcn Nova neutral tokens as plain CSS): light and dark theme, sidebar plus bottom tab bar, dialogs instead of confirm(), Lucide icons, Geist font, token-driven charts, style guide page |
 | 1.1.1 | Dashboard section **QAQC Geokimia**: sample flow (sent vs RoA vs Excel QAQC), failed Blank / CRM / Duplikat cards, Blank Ni scatter, duplicate original-vs-duplicate scatter; dashboard loads `exp_assay`, `exp_crm` and `qaqc_thresholds` |
 | 1.2 | **Phase 2 complete:** Dashboard collar map by class (Leaflet, Esri satellite and topo), Excel and PDF export of the dashboard, **All sites** tab on explohub (`js/dash/hub.js`, explohub login, Site selector, site status table), `HUB` config |
+| 1.2.3 | Photo fields (core and collar) offer two buttons: camera or gallery / files (the single input opened the camera only on phones) |

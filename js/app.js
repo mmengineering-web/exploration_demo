@@ -322,7 +322,9 @@ async function viewProgress() {
       <label>Downtime (jam)<input name="downtime_hours" type="number" step="0.25" min="0" max="${maxDt}" inputmode="decimal" value="${rec.downtime_hours ?? 0}"></label>
       <label>Alasan downtime<select name="downtime_reason"><option value="">—</option>${opt(codes('downtime_reason', { keep: rec.downtime_reason }), rec.downtime_reason)}</select></label>
     </div>
-    <label>Foto core<input id="photo" type="file" accept="image/*" capture="environment"></label>
+    <div class="photo-pick"><span class="lbl">Foto core</span><div class="row actions">
+      <label class="btn">${icon('camera')} Ambil foto (kamera)<input id="photo-cam" type="file" accept="image/*" capture="environment" hidden></label>
+      <label class="btn">${icon('image')} Pilih dari galeri / file<input id="photo" type="file" accept="image/*" hidden></label></div></div>
     <div id="pname" class="muted small"></div>
     <div id="pv"></div>
     <label>Catatan<textarea name="remarks" rows="2">${esc(rec.remarks)}</textarea></label>
@@ -358,11 +360,13 @@ async function viewProgress() {
   };
   f.addEventListener('input', refresh); refresh();
   if (rec.photo_path) showPreview($('#pv'), { id: rec.id, path: rec.photo_path, caption: rec.photo_path.split('/').pop() });
-  $('#photo').onchange = async e => {
+  const onPhoto = async e => {
     const file = e.target.files[0]; if (!file) return;
     try { pendingPhoto = await compressImage(file); showPreview($('#pv'), { blob: pendingPhoto, caption: `Siap disimpan (${Math.round(pendingPhoto.size / 1024)} KB)` }); }
     catch { toast('Gagal memproses foto', 'err'); }
+    e.target.value = '';      // the same photo can be picked again after a change
   };
+  $('#photo').onchange = onPhoto; $('#photo-cam').onchange = onPhoto;
   const dw = $('.datewrap'); if (dw) dw.addEventListener('click', e => { if (e.target.tagName !== 'INPUT') { try { dw.querySelector('input').showPicker(); } catch { dw.querySelector('input').focus(); } } });
   f.onsubmit = async e => {
     e.preventDefault();
@@ -458,7 +462,9 @@ async function viewCollar() {
     <div class="row"><label>Dip (°)<input name="dip_deg" type="number" step="any" min="-90" max="90" inputmode="decimal" value="${v(rec.dip_deg)}" placeholder="-90"></label>
       <label>Azimuth (°)<input name="azimuth_deg" type="number" step="any" min="0" max="360" inputmode="decimal" value="${v(rec.azimuth_deg)}" placeholder="0"></label></div>
     <p class="muted small" style="margin-top:-4px">Kosong = lubang vertikal (dip -90, azimuth 0).</p>
-    <label>Foto collar<input id="photo" type="file" accept="image/*" capture="environment"></label>
+    <div class="photo-pick"><span class="lbl">Foto collar</span><div class="row actions">
+      <label class="btn">${icon('camera')} Ambil foto (kamera)<input id="photo-cam" type="file" accept="image/*" capture="environment" hidden></label>
+      <label class="btn">${icon('image')} Pilih dari galeri / file<input id="photo" type="file" accept="image/*" hidden></label></div></div>
     <div id="cname" class="muted small"></div>
     <div id="pv"></div>
     <label>Catatan<textarea name="remarks" rows="2">${esc(rec.remarks)}</textarea></label>
@@ -495,11 +501,13 @@ async function viewCollar() {
     }, err => { $('#gpsmsg').textContent = 'Gagal: ' + err.message; }, { enableHighAccuracy: true, timeout: 30000, maximumAge: 0 });
   };
   if (rec.photo_path) showPreview($('#pv'), { id: rec.id, path: rec.photo_path });
-  $('#photo').onchange = async e => {
+  const onPhoto = async e => {
     const file = e.target.files[0]; if (!file) return;
     try { pendingPhoto = await compressImage(file); showPreview($('#pv'), { blob: pendingPhoto, caption: `Siap disimpan (${Math.round(pendingPhoto.size / 1024)} KB)` }); }
     catch { toast('Gagal memproses foto', 'err'); }
+    e.target.value = '';      // the same photo can be picked again after a change
   };
+  $('#photo').onchange = onPhoto; $('#photo-cam').onchange = onPhoto;
   f.onsubmit = async e => {
     e.preventDefault();
     const r = read();

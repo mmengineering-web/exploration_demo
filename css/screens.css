@@ -50,3 +50,8 @@
 .mpdf{position:fixed;inset:0;z-index:var(--z-overlay);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:var(--sp-6) var(--sp-3);background:var(--overlay)}
 .mpdf .card{width:100%;max-width:32rem;margin:0}
 @media (max-width:560px){.mlp{left:.65rem;right:.65rem;top:auto;bottom:.65rem;width:auto;max-height:55%}#map{min-height:26rem}}
+
+/* photo field: camera or gallery */
+.photo-pick{margin:0 0 var(--sp-4)}
+.photo-pick .lbl{display:block;margin:0 0 var(--sp-2);font-size:.8125rem;font-weight:500;color:var(--foreground)}
+.photo-pick .row.actions{margin:0;gap:var(--sp-2);flex-wrap:wrap}
