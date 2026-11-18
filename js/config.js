@@ -6,7 +6,7 @@ export const SITES = {
   WKM:  { name: 'WKM',  url: 'https://yjhjlyeckoljhzjkxmmh.supabase.co', anonKey: 'sb_publishable_SN28oCcSLQj3epo4NAla2g_U_fLq58I' },
   BM:   { name: 'BM',   url: '', anonKey: '' },
   TMS:  { name: 'TMS',  url: '', anonKey: '' },
-  CDSM: { name: 'CDSM', url: '', anonKey: '' },
+  CDSM: { name: 'CDSM', url: 'https://tebzrlygodzdtkytrzrp.supabase.co', anonKey: 'sb_publishable_m7MOKVvB86PrfW5HD7dGWw_gIwv-m7F' },
   IBN:  { name: 'IBN',  url: '', anonKey: '' },
   TPB:  { name: 'TPB',  url: '', anonKey: '' },
   AJB:  { name: 'AJB',  url: '', anonKey: '' },
